@@ -75,13 +75,20 @@ funnel.html?name=Max%20Mustermann&city=Berlin&ref=https://portal.kickstartercash
 
 ## Promo-Video
 
-Der Webinar-Bereich zeigt standardmäßig einen **Platzhalter**. Zwei Wege, ein
-echtes Video einzubinden:
+Der Webinar-Bereich bettet standardmäßig das mitgelieferte Promo-Video
+`promo/promo.html` ein (eine eigenständige, animierte Präsentation mit Ton).
 
-- **Datei:** eine `promo/promo.html` (oder Videodatei) neben `funnel.html`
-  legen und die URL über den Parameter `video=promo/promo.html` setzen, **oder**
-- **Embed:** eine externe Embed-URL (z. B. YouTube) im Generator-Feld
-  „Promo-Video-URL" eintragen.
+> **Hinweis:** `promo/promo.html` lädt zur Laufzeit React und Schriften aus dem
+> Netz (CDN) – auf einem echten Server mit Internet läuft es problemlos; ohne
+> Internet (reines `file://` offline) bleibt der Rahmen leer.
+
+Überschreiben/ausblenden über den Parameter `video`:
+
+- **Standard:** `video` weglassen → `promo/promo.html` wird eingebettet.
+- **Eigenes Embed:** `video=https://…` (z. B. YouTube-Embed oder `.mp4`-Seite).
+- **Ausblenden:** `video=off` → Platzhalter statt Video.
+
+Im Generator entspricht das dem Feld „Promo-Video".
 
 ## Lead-Formular
 

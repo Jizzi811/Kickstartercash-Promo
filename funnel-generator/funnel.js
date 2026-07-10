@@ -35,7 +35,8 @@
     countdownEnabled: p("countdown", "0") === "1",
     impressumUrl: p("impressum", DEFAULT_URL),
     datenschutzUrl: p("datenschutz", DEFAULT_URL),
-    video: p("video", "")
+    // Standard-Promo-Video; per ?video=… überschreibbar, ?video=off blendet es aus
+    video: p("video", "promo/promo.html")
   };
 
   // Abgeleitete Werte
@@ -83,9 +84,9 @@
     });
   }
 
-  /* ---- Promo-Video: optionale URL einhängen ---- */
+  /* ---- Promo-Video: Standard promo/promo.html, per ?video= überschreibbar ---- */
   function initVideo() {
-    if (!cfg.video) return;
+    if (!cfg.video || cfg.video === "off") return; // Platzhalter behalten
     var box = document.getElementById("kc-video");
     if (!box) return;
     box.innerHTML = "";
