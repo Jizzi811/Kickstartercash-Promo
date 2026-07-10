@@ -1,0 +1,243 @@
+/* =========================================================
+   Kickstarter Cash Club – Opt-in Komponente
+   Selbst-enthaltenes Styling. Alle Klassen mit Prefix "kcc-"
+   damit nichts mit der Hauptseite kollidiert.
+   ========================================================= */
+
+.kcc-optin {
+  --kcc-bg: #0d1117;
+  --kcc-surface: #161b22;
+  --kcc-border: #2a323d;
+  --kcc-gold: #f5b301;
+  --kcc-gold-dark: #d99a00;
+  --kcc-text: #f4f6f8;
+  --kcc-muted: #9aa4b1;
+  --kcc-error: #ff6b6b;
+  --kcc-radius: 16px;
+
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--kcc-text);
+  background: radial-gradient(120% 120% at 50% 0%, #1a2230 0%, var(--kcc-bg) 60%);
+  border: 1px solid var(--kcc-border);
+  border-radius: var(--kcc-radius);
+  padding: 2.5rem 1.75rem;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+.kcc-optin *,
+.kcc-optin *::before,
+.kcc-optin *::after {
+  box-sizing: border-box;
+}
+
+.kcc-optin__inner {
+  text-align: center;
+}
+
+.kcc-optin__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kcc-gold);
+  background: rgba(245, 179, 1, 0.1);
+  border: 1px solid rgba(245, 179, 1, 0.35);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1.1rem;
+}
+
+.kcc-optin__title {
+  font-size: 1.55rem;
+  line-height: 1.25;
+  font-weight: 800;
+  margin: 0 0 0.6rem;
+}
+
+.kcc-optin__subtitle {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--kcc-muted);
+  margin: 0 0 1.75rem;
+}
+
+.kcc-optin__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.kcc-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--kcc-text);
+}
+
+.kcc-field input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  color: var(--kcc-text);
+  background: var(--kcc-surface);
+  border: 1px solid var(--kcc-border);
+  border-radius: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kcc-field input::placeholder {
+  color: #66707c;
+}
+
+.kcc-field input:focus {
+  outline: none;
+  border-color: var(--kcc-gold);
+  box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.18);
+}
+
+.kcc-field input.kcc-invalid {
+  border-color: var(--kcc-error);
+}
+
+.kcc-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--kcc-muted);
+}
+
+.kcc-consent input {
+  margin-top: 0.15rem;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--kcc-gold);
+  flex-shrink: 0;
+}
+
+.kcc-consent a {
+  color: var(--kcc-gold);
+}
+
+.kcc-optin__submit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  padding: 0.95rem 1.5rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1a1200;
+  background: linear-gradient(135deg, var(--kcc-gold), var(--kcc-gold-dark));
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.kcc-optin__submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -8px rgba(245, 179, 1, 0.55);
+}
+
+.kcc-optin__submit:active {
+  transform: translateY(0);
+}
+
+.kcc-optin__submit:disabled {
+  cursor: wait;
+  opacity: 0.8;
+}
+
+.kcc-optin__spinner {
+  display: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 2px solid rgba(26, 18, 0, 0.35);
+  border-top-color: #1a1200;
+  border-radius: 50%;
+  animation: kcc-spin 0.7s linear infinite;
+}
+
+.kcc-optin.is-loading .kcc-optin__spinner {
+  display: inline-block;
+}
+
+@keyframes kcc-spin {
+  to { transform: rotate(360deg); }
+}
+
+.kcc-optin__error {
+  min-height: 1.1rem;
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--kcc-error);
+  text-align: center;
+}
+
+.kcc-optin__trust {
+  margin: 1.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--kcc-muted);
+}
+
+/* ---- Erfolg-Zustand ---- */
+.kcc-optin.is-success .kcc-optin__form,
+.kcc-optin.is-success .kcc-optin__trust {
+  display: none;
+}
+
+.kcc-optin__success {
+  display: none;
+  text-align: center;
+  animation: kcc-fade 0.35s ease;
+}
+
+.kcc-optin.is-success .kcc-optin__success {
+  display: block;
+}
+
+.kcc-optin__success-icon {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.kcc-optin__success h3 {
+  font-size: 1.3rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.kcc-optin__success p {
+  color: var(--kcc-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+@keyframes kcc-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Demo-Seite ---- */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #05070a;
+}
+
+@media (max-width: 520px) {
+  .kcc-optin { padding: 2rem 1.25rem; }
+  .kcc-optin__title { font-size: 1.35rem; }
+}

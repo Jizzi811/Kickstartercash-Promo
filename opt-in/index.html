@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kickstarter Cash Club – Zugang sichern</title>
+  <link rel="stylesheet" href="opt-in.css" />
+</head>
+<body>
+  <!--
+    DEMO-SEITE
+    Diese Datei zeigt die Opt-in-Komponente in Aktion.
+    Zum Einbinden in die Hauptseite: siehe README.md
+  -->
+  <main class="page">
+    <!-- ===== START Kickstarter-Opt-in-Komponente ===== -->
+    <section
+      class="kcc-optin"
+      data-funnel-url="https://kickstarterai.net/funnel"
+      data-webhook-url=""
+    >
+      <div class="kcc-optin__inner">
+        <span class="kcc-optin__badge">Kickstarter Cash Club</span>
+        <h2 class="kcc-optin__title">Sichere dir jetzt deinen Zugang zum Funnel</h2>
+        <p class="kcc-optin__subtitle">
+          Trag deine Kontaktdaten ein und erhalte sofort Zugang zum
+          Kickstarter&nbsp;Cash&nbsp;Club Funnel – kostenlos &amp; unverbindlich.
+        </p>
+
+        <form class="kcc-optin__form" novalidate>
+          <div class="kcc-field">
+            <label for="kcc-name">Vorname</label>
+            <input
+              type="text"
+              id="kcc-name"
+              name="name"
+              autocomplete="given-name"
+              placeholder="Dein Vorname"
+              required
+            />
+          </div>
+
+          <div class="kcc-field">
+            <label for="kcc-email">E-Mail-Adresse</label>
+            <input
+              type="email"
+              id="kcc-email"
+              name="email"
+              autocomplete="email"
+              placeholder="dein@email.de"
+              required
+            />
+          </div>
+
+          <label class="kcc-consent">
+            <input type="checkbox" name="consent" required />
+            <span>
+              Ich bin einverstanden, dass meine Daten zur Kontaktaufnahme
+              gespeichert werden. (<a href="/datenschutz" target="_blank" rel="noopener">Datenschutz</a>)
+            </span>
+          </label>
+
+          <button type="submit" class="kcc-optin__submit">
+            <span class="kcc-optin__submit-label">Jetzt Zugang sichern →</span>
+            <span class="kcc-optin__spinner" aria-hidden="true"></span>
+          </button>
+
+          <p class="kcc-optin__error" role="alert" aria-live="polite"></p>
+        </form>
+
+        <p class="kcc-optin__trust">
+          🔒 100&nbsp;% kostenlos · Kein Spam · Jederzeit abmeldbar
+        </p>
+      </div>
+    </section>
+    <!-- ===== ENDE Kickstarter-Opt-in-Komponente ===== -->
+  </main>
+
+  <script src="opt-in.js"></script>
+</body>
+</html>
