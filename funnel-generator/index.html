@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kickstartercash.Club – Funnel-Generator</title>
+  <link rel="stylesheet" href="generator.css">
+</head>
+<body>
+  <main class="gen-wrap">
+
+    <div class="gen-head">
+      <span class="gen-badge">Funnel-Generator</span>
+      <h1 class="gen-title">Erstelle deinen <span class="accent">persönlichen Funnel</span></h1>
+      <p class="gen-sub">
+        Trag deine Kontaktdaten ein und klick auf „Funnel generieren“ – du bekommst
+        sofort deinen fertigen, mit deinen Daten personalisierten Funnel als Vorschau
+        und einen teilbaren Link.
+      </p>
+    </div>
+
+    <div class="gen-card">
+      <form id="gen-form" novalidate>
+
+        <div class="gen-section-label">Dein Profil</div>
+        <div class="gen-grid">
+          <div class="gen-field">
+            <label for="f-name">Name *</label>
+            <input type="text" id="f-name" name="name" placeholder="z. B. Nadja Masurkewitsch" autocomplete="name" required>
+          </div>
+          <div class="gen-field">
+            <label for="f-role">Rolle / Titel</label>
+            <input type="text" id="f-role" name="role" placeholder="z. B. Vertriebspartner" value="Vertriebspartner">
+          </div>
+          <div class="gen-field">
+            <label for="f-city">Stadt</label>
+            <input type="text" id="f-city" name="city" placeholder="z. B. Duisburg">
+          </div>
+        </div>
+
+        <div class="gen-divider"></div>
+
+        <div class="gen-section-label">Kontakt</div>
+        <div class="gen-grid">
+          <div class="gen-field">
+            <label for="f-email">E-Mail *</label>
+            <input type="email" id="f-email" name="email" placeholder="name@mail.com" autocomplete="email" required>
+          </div>
+          <div class="gen-field">
+            <label for="f-phone">Telefon</label>
+            <input type="tel" id="f-phone" name="phone" placeholder="+49 175 0000000">
+          </div>
+          <div class="gen-field">
+            <label for="f-wa">WhatsApp-Nummer</label>
+            <input type="tel" id="f-wa" name="wa" placeholder="+491750000000">
+            <span class="hint">Für den „Per WhatsApp senden“-Button im Funnel.</span>
+          </div>
+          <div class="gen-field">
+            <label for="f-tg">Telegram (optional)</label>
+            <input type="text" id="f-tg" name="tg" placeholder="@deinname">
+          </div>
+          <div class="gen-field">
+            <label for="f-ig">Instagram (optional)</label>
+            <input type="text" id="f-ig" name="ig" placeholder="@deinname">
+          </div>
+        </div>
+
+        <div class="gen-divider"></div>
+
+        <div class="gen-section-label">Reflink &amp; Call-to-Action</div>
+        <div class="gen-grid">
+          <div class="gen-field full">
+            <label for="f-ref">Dein Reflink *</label>
+            <input type="url" id="f-ref" name="ref" placeholder="https://portal.kickstartercash.club/?ref=DEINCODE" required>
+            <span class="hint">Ziel-URL aller „Mitglied werden“ / CTA-Buttons.</span>
+          </div>
+          <div class="gen-field full">
+            <label for="f-cta">CTA-Button-Text</label>
+            <input type="text" id="f-cta" name="cta" placeholder="Jetzt kostenlos teilnehmen" value="Jetzt kostenlos teilnehmen">
+          </div>
+        </div>
+
+        <div class="gen-divider"></div>
+
+        <div class="gen-section-label">Webinar &amp; Rechtliches</div>
+        <div class="gen-grid">
+          <div class="gen-field">
+            <label for="f-webinar">Webinar-Termin</label>
+            <input type="datetime-local" id="f-webinar" name="webinar">
+          </div>
+          <div class="gen-field">
+            <label for="f-impressum">Impressum-URL</label>
+            <input type="url" id="f-impressum" name="impressum" placeholder="https://…">
+          </div>
+          <div class="gen-field">
+            <label for="f-datenschutz">Datenschutz-URL</label>
+            <input type="url" id="f-datenschutz" name="datenschutz" placeholder="https://…">
+          </div>
+          <div class="gen-field full">
+            <label for="f-video">Promo-Video-URL (optional)</label>
+            <input type="url" id="f-video" name="video" placeholder="https://… (z. B. promo/promo.html oder YouTube-Embed)">
+          </div>
+          <label class="gen-check">
+            <input type="checkbox" id="f-countdown" name="countdown">
+            <span>Countdown zum Webinar-Termin anzeigen</span>
+          </label>
+        </div>
+
+        <div class="gen-divider"></div>
+
+        <button type="submit" class="gen-btn">⚡ Funnel generieren</button>
+        <div id="gen-error" class="gen-error" hidden></div>
+      </form>
+    </div>
+
+    <section id="gen-result" class="gen-result" hidden>
+      <div class="gen-card">
+        <div class="gen-section-label">Fertig 🎉</div>
+        <h2>Dein <span class="accent">persönlicher Funnel</span> ist bereit</h2>
+        <p class="gen-sub" style="margin:0;text-align:left;">Teile diesen Link – oder öffne den Funnel in voller Größe.</p>
+
+        <div class="gen-link-row">
+          <input type="text" id="gen-link" readonly>
+          <button type="button" id="gen-copy" class="gen-mini-btn solid">🔗 Link kopieren</button>
+          <a id="gen-open" href="#" target="_blank" rel="noopener" class="gen-mini-btn ghost">In neuem Tab öffnen ↗</a>
+        </div>
+        <div id="gen-copied" class="gen-copied"></div>
+
+        <iframe id="gen-preview" class="gen-preview-frame" title="Funnel-Vorschau"></iframe>
+      </div>
+    </section>
+
+    <p class="gen-foot">Kickstartercash.Club · Funnel-Generator</p>
+  </main>
+
+  <script src="generator.js"></script>
+</body>
+</html>
