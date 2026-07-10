@@ -24,9 +24,9 @@
     var successEl = document.createElement("div");
     successEl.className = "kcc-optin__success";
     successEl.innerHTML =
-      '<div class="kcc-optin__success-icon">✅</div>' +
-      "<h3>Geschafft!</h3>" +
-      "<p>Du wirst gleich zum Funnel weitergeleitet …</p>";
+      '<div class="kcc-optin__success-icon">✓</div>' +
+      "<h3>Geschafft &ndash; willkommen!</h3>" +
+      "<p>Du wirst gleich zum Kickstartercash.Club weitergeleitet &hellip;</p>";
     root.querySelector(".kcc-optin__inner").appendChild(successEl);
 
     function showError(msg) {

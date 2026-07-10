@@ -1,30 +1,65 @@
 /* =========================================================
-   Kickstarter Cash Club – Opt-in Komponente
-   Selbst-enthaltenes Styling. Alle Klassen mit Prefix "kcc-"
-   damit nichts mit der Hauptseite kollidiert.
+   Kickstartercash.Club – Opt-in Komponente
+   Selbst-enthaltenes Styling im Funnel-Look
+   (Schwarz #0a0806 + Gold, Sora / Cormorant Garamond).
+   Alle Klassen mit Prefix "kcc-", damit nichts mit der
+   Hauptseite kollidiert.
    ========================================================= */
 
-.kcc-optin {
-  --kcc-bg: #0d1117;
-  --kcc-surface: #161b22;
-  --kcc-border: #2a323d;
-  --kcc-gold: #f5b301;
-  --kcc-gold-dark: #d99a00;
-  --kcc-text: #f4f6f8;
-  --kcc-muted: #9aa4b1;
-  --kcc-error: #ff6b6b;
-  --kcc-radius: 16px;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Sora:wght@300;400;500;600;700;800&display=swap');
 
+.kcc-optin {
+  /* ---- Funnel-Designtokens ---- */
+  --kcc-bg: #0a0806;
+  --kcc-card-top: rgba(28, 23, 15, 0.92);
+  --kcc-card-bottom: rgba(13, 11, 8, 0.95);
+  --kcc-border: rgba(233, 197, 106, 0.22);
+  --kcc-border-strong: rgba(233, 197, 106, 0.4);
+  --kcc-gold: #ebcb72;
+  --kcc-gold-soft: #e7c167;
+  --kcc-gold-deep: #b07f2a;
+  --kcc-grad-gold: linear-gradient(180deg, #f6dc8e 0%, #d9a93f 52%, #b07f2a 100%);
+  --kcc-grad-text: linear-gradient(180deg, #fbe9a6, #e7c167 45%, #b07f2a);
+  --kcc-ink: #1a1206;
+  --kcc-text: #f3ecdd;
+  --kcc-muted: #b6a98e;
+  --kcc-muted-2: #9f937c;
+  --kcc-faint: #7d745f;
+  --kcc-input-bg: rgba(8, 6, 4, 0.6);
+  --kcc-error: #f0b9ad;
+  --kcc-radius: 22px;
+
+  position: relative;
   box-sizing: border-box;
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--kcc-text);
-  background: radial-gradient(120% 120% at 50% 0%, #1a2230 0%, var(--kcc-bg) 60%);
+  line-height: 1.55;
+  background: linear-gradient(180deg, var(--kcc-card-top), var(--kcc-card-bottom));
   border: 1px solid var(--kcc-border);
   border-radius: var(--kcc-radius);
-  padding: 2.5rem 1.75rem;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
   max-width: 480px;
   margin: 0 auto;
-  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* dezenter Gold-Schimmer oben in der Karte, wie im Funnel-Hero */
+.kcc-optin::before {
+  content: "";
+  position: absolute;
+  top: -55%;
+  left: 50%;
+  width: 130%;
+  height: 90%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(216, 160, 55, 0.16), transparent 62%);
+  pointer-events: none;
+}
+
+.kcc-optin > * {
+  position: relative;
+  z-index: 1;
 }
 
 .kcc-optin *,
@@ -37,32 +72,66 @@
   text-align: center;
 }
 
+/* ---- Badge mit Live-Punkt ---- */
 .kcc-optin__badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--kcc-gold);
-  background: rgba(245, 179, 1, 0.1);
-  border: 1px solid rgba(245, 179, 1, 0.35);
-  padding: 0.35rem 0.85rem;
+  color: var(--kcc-gold-soft);
+  background: rgba(233, 197, 106, 0.06);
+  border: 1px solid rgba(233, 197, 106, 0.32);
+  padding: 0.5rem 1.1rem;
   border-radius: 999px;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.4rem;
+}
+
+.kcc-optin__badge::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--kcc-gold);
+  box-shadow: 0 0 10px var(--kcc-gold);
+  animation: kcc-live 1.4s ease-in-out infinite;
 }
 
 .kcc-optin__title {
-  font-size: 1.55rem;
-  line-height: 1.25;
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1.5rem, 4vw, 1.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
   font-weight: 800;
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.7rem;
+  color: var(--kcc-text);
+}
+
+/* Gold-Gradient-Highlight im Titel */
+.kcc-optin__title-accent {
+  background: var(--kcc-grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .kcc-optin__subtitle {
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.55;
   color: var(--kcc-muted);
-  margin: 0 0 1.75rem;
+  margin: 0 0 1.9rem;
+}
+
+/* optionaler Serif-Kursiv-Claim (Cormorant Garamond) */
+.kcc-optin__claim {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: #c9bb9b;
+  margin: 0 0 1.4rem;
 }
 
 .kcc-optin__form {
@@ -74,79 +143,94 @@
 
 .kcc-field label {
   display: block;
-  font-size: 0.82rem;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: var(--kcc-text);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  color: var(--kcc-muted);
 }
 
 .kcc-field input {
   width: 100%;
-  padding: 0.85rem 1rem;
-  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  font-family: "Sora", sans-serif;
+  font-size: 0.95rem;
   color: var(--kcc-text);
-  background: var(--kcc-surface);
+  background: var(--kcc-input-bg);
   border: 1px solid var(--kcc-border);
-  border-radius: 10px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .kcc-field input::placeholder {
-  color: #66707c;
+  color: #6b6353;
 }
 
 .kcc-field input:focus {
   outline: none;
   border-color: var(--kcc-gold);
-  box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.18);
+  box-shadow: 0 0 0 3px rgba(233, 197, 106, 0.12);
 }
 
 .kcc-field input.kcc-invalid {
-  border-color: var(--kcc-error);
+  border-color: rgba(220, 90, 70, 0.55);
+  box-shadow: 0 0 0 3px rgba(220, 90, 70, 0.14);
 }
 
 .kcc-consent {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.8rem;
-  line-height: 1.45;
-  color: var(--kcc-muted);
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--kcc-muted-2);
+  cursor: pointer;
 }
 
 .kcc-consent input {
-  margin-top: 0.15rem;
-  width: 1rem;
-  height: 1rem;
-  accent-color: var(--kcc-gold);
+  margin-top: 0.2rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #d9a93f;
   flex-shrink: 0;
 }
 
 .kcc-consent a {
   color: var(--kcc-gold);
+  text-decoration: none;
 }
 
+.kcc-consent a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Gold-CTA mit Glow, wie im Funnel ---- */
 .kcc-optin__submit {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 0.35rem;
-  padding: 0.95rem 1.5rem;
-  font-size: 1.02rem;
+  margin-top: 0.4rem;
+  padding: 1.05rem 1.5rem;
+  font-family: "Sora", sans-serif;
+  font-size: 1rem;
   font-weight: 700;
-  color: #1a1200;
-  background: linear-gradient(135deg, var(--kcc-gold), var(--kcc-gold-dark));
-  border: none;
-  border-radius: 10px;
+  letter-spacing: 0.3px;
+  color: var(--kcc-ink);
+  background: var(--kcc-grad-gold);
+  border: 1px solid rgba(255, 236, 176, 0.5);
+  border-radius: 14px;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 12px 34px rgba(216, 160, 55, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: kcc-ctaglow 2.8s ease-in-out infinite;
+  transition: transform 0.25s ease;
 }
 
 .kcc-optin__submit:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px -8px rgba(245, 179, 1, 0.55);
+  transform: translateY(-2px);
 }
 
 .kcc-optin__submit:active {
@@ -155,25 +239,22 @@
 
 .kcc-optin__submit:disabled {
   cursor: wait;
-  opacity: 0.8;
+  opacity: 0.85;
+  animation: none;
 }
 
 .kcc-optin__spinner {
   display: none;
   width: 1.05rem;
   height: 1.05rem;
-  border: 2px solid rgba(26, 18, 0, 0.35);
-  border-top-color: #1a1200;
+  border: 2px solid rgba(26, 18, 6, 0.35);
+  border-top-color: var(--kcc-ink);
   border-radius: 50%;
   animation: kcc-spin 0.7s linear infinite;
 }
 
 .kcc-optin.is-loading .kcc-optin__spinner {
   display: inline-block;
-}
-
-@keyframes kcc-spin {
-  to { transform: rotate(360deg); }
 }
 
 .kcc-optin__error {
@@ -185,21 +266,22 @@
 }
 
 .kcc-optin__trust {
-  margin: 1.5rem 0 0;
+  margin: 1.6rem 0 0;
   font-size: 0.78rem;
-  color: var(--kcc-muted);
+  color: var(--kcc-faint);
 }
 
 /* ---- Erfolg-Zustand ---- */
 .kcc-optin.is-success .kcc-optin__form,
-.kcc-optin.is-success .kcc-optin__trust {
+.kcc-optin.is-success .kcc-optin__trust,
+.kcc-optin.is-success .kcc-optin__claim {
   display: none;
 }
 
 .kcc-optin__success {
   display: none;
   text-align: center;
-  animation: kcc-fade 0.35s ease;
+  animation: kcc-fade 0.4s ease;
 }
 
 .kcc-optin.is-success .kcc-optin__success {
@@ -207,13 +289,26 @@
 }
 
 .kcc-optin__success-icon {
-  font-size: 2.6rem;
-  line-height: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0.5rem auto 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #f6dc8e, #b07f2a);
+  box-shadow: 0 0 30px rgba(233, 197, 106, 0.4);
+  color: var(--kcc-ink);
+  font-size: 1.9rem;
+  font-weight: 800;
 }
 
 .kcc-optin__success h3 {
-  font-size: 1.3rem;
-  margin: 0.75rem 0 0.5rem;
+  font-family: "Sora", sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  margin: 0 0 0.6rem;
+  color: var(--kcc-text);
 }
 
 .kcc-optin__success p {
@@ -222,22 +317,65 @@
   margin: 0;
 }
 
+/* ---- Keyframes (Funnel-Animationen) ---- */
+@keyframes kcc-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes kcc-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.78); }
+}
+
+@keyframes kcc-ctaglow {
+  0%, 100% {
+    box-shadow: 0 12px 34px rgba(216, 160, 55, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 14px 50px rgba(233, 197, 106, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+}
+
 @keyframes kcc-fade {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kcc-optin__submit,
+  .kcc-optin__badge::before {
+    animation: none !important;
+  }
 }
 
 /* ---- Demo-Seite ---- */
 .page {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
-  background: #05070a;
+  padding: 2.5rem 1rem;
+  background: var(--kcc-bg, #0a0806);
+  overflow: hidden;
+}
+
+/* goldener Radial-Glow im Hintergrund der Demo, wie der Funnel-Hero */
+.page::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: min(960px, 120vw);
+  height: 620px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(216, 160, 55, 0.18), transparent 64%);
+  filter: blur(18px);
+  pointer-events: none;
 }
 
 @media (max-width: 520px) {
-  .kcc-optin { padding: 2rem 1.25rem; }
-  .kcc-optin__title { font-size: 1.35rem; }
+  .kcc-optin { padding: 1.75rem 1.25rem; }
 }
