@@ -73,6 +73,28 @@
     return base.toString();
   }
 
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Kleiner Gold-Funken-Regen rund um den Button */
+  function sparkle(fromEl) {
+    if (reducedMotion) return;
+    var r = fromEl.getBoundingClientRect();
+    var cx = r.left + r.width / 2;
+    var cy = r.top + r.height / 2;
+    for (var k = 0; k < 14; k++) {
+      var s = document.createElement("span");
+      s.className = "gen-spark";
+      var angle = (Math.PI * 2 * k) / 14 + Math.random() * 0.5;
+      var dist = 60 + Math.random() * 70;
+      s.style.left = cx + "px";
+      s.style.top = cy + "px";
+      s.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+      s.style.setProperty("--dy", Math.sin(angle) * dist - 30 + "px");
+      document.body.appendChild(s);
+      setTimeout(function (el) { return function () { el.remove(); }; }(s), 900);
+    }
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var u = cleanUsername(form.elements.user.value);
@@ -84,25 +106,41 @@
     if (!isValidEmail(email)) { showError("Bitte gib eine gültige E-Mail-Adresse ein."); return; }
     showError("");
 
+    var btn = form.querySelector(".gen-btn");
     var url = buildUrl();
-    linkInput.value = url;
-    openLink.setAttribute("href", url);
-    preview.src = url;
-    resultEl.hidden = false;
-    if (copiedEl) copiedEl.textContent = "";
 
-    resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    function reveal() {
+      linkInput.value = url;
+      openLink.setAttribute("href", url);
+      preview.src = url;
+      resultEl.hidden = false;
+      if (copiedEl) copiedEl.textContent = "";
+      if (btn) { btn.disabled = false; btn.textContent = "⚡ Funnel generieren"; sparkle(btn); }
+      resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    if (btn && !reducedMotion) {
+      btn.disabled = true;
+      btn.textContent = "✨ Dein Funnel wird gebaut …";
+      setTimeout(reveal, 550);
+    } else {
+      reveal();
+    }
   });
 
   if (copyBtn) {
     copyBtn.addEventListener("click", function () {
       var text = linkInput.value;
       function done() {
-        if (!copiedEl) return;
-        copiedEl.textContent = "✓ Link in die Zwischenablage kopiert.";
-        copiedEl.classList.remove("pop");
-        void copiedEl.offsetWidth; /* Animation neu starten */
-        copiedEl.classList.add("pop");
+        if (copiedEl) {
+          copiedEl.textContent = "✓ Link in die Zwischenablage kopiert.";
+          copiedEl.classList.remove("pop");
+          void copiedEl.offsetWidth; /* Animation neu starten */
+          copiedEl.classList.add("pop");
+        }
+        var original = copyBtn.textContent;
+        copyBtn.textContent = "✓ Kopiert!";
+        setTimeout(function () { copyBtn.textContent = original; }, 1600);
       }
       function fallback() {
         linkInput.removeAttribute("readonly");

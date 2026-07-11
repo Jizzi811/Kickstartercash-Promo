@@ -119,9 +119,27 @@
     nodes.forEach(function (n) { io.observe(n); });
   }
 
+  /* ---- Gold-Fortschrittsbalken oben (scrollgebunden, kein Autoplay) ---- */
+  function initProgress() {
+    var bar = document.createElement("div");
+    bar.id = "kc-progress";
+    document.body.appendChild(bar);
+    var ticking = false;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
   function boot() {
     applyBindings();
     initReveal();
+    initProgress();
     document.title = "Kickstartercash.Club – " + vals.sName;
   }
 

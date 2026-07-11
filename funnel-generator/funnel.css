@@ -54,13 +54,45 @@ html.js [data-reveal="right"].kc-in{ animation-name: kc-rise-r; }
 
 @media (prefers-reduced-motion: reduce) {
   html.js [data-reveal] { opacity: 1 !important; animation: none !important; }
-  .kc-cta { animation: none !important; }
+  .kc-cta, .kc-cta::after, .kc-glow::after, .kc-photoring { animation: none !important; }
 }
 
 /* ---- Interaktive Zustände (ersetzen die style-hover/style-focus des Originals) ---- */
-.kc-cta            { transition: transform .25s ease, filter .25s ease; }
+.kc-cta            { position: relative; overflow: hidden; transition: transform .25s ease, filter .25s ease; }
 .kc-cta:hover      { transform: translateY(-2px); filter: brightness(1.06); }
 .kc-cta:active     { transform: translateY(0) scale(.98); }
+
+/* Gold-Schimmer, der periodisch über die Haupt-CTAs läuft */
+.kc-cta::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+.kc-glow::after    { animation: kc-sweep 5s ease-in-out 1.2s infinite; }
+.kc-cta:hover::after { animation: kc-sweep 0.7s ease forwards; }
+
+@keyframes kc-sweep {
+  0%, 72% { left: -75%; }
+  88%, 100% { left: 125%; }
+}
+
+/* Fortschrittsbalken oben – zeigt, wie weit man gescrollt hat */
+#kc-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px; width: 0;
+  background: linear-gradient(90deg, #f6dc8e, #d9a93f, #b07f2a);
+  box-shadow: 0 0 10px rgba(233, 197, 106, .55);
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Berater-Foto schwebt sanft im Gold-Ring */
+.kc-photoring { animation: kc-float 7s ease-in-out infinite; display: inline-block; }
 .kc-ghost          { transition: background .25s ease, border-color .25s ease; }
 .kc-ghost:hover    { background: rgba(233,197,106,.08); border-color: rgba(233,197,106,.7); }
 .kc-glow           { animation: kc-ctaglow 2.8s ease-in-out infinite; }

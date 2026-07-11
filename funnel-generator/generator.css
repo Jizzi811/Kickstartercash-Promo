@@ -221,6 +221,48 @@ body {
 
 .gen-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
 .gen-btn:active { transform: translateY(0) scale(0.985); }
+.gen-btn:disabled { cursor: progress; filter: saturate(0.85); }
+
+/* Gold-Schimmer über den Generieren-Button */
+.gen-btn { position: relative; overflow: hidden; }
+.gen-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  animation: gen-sweep 5s ease-in-out 1s infinite;
+}
+
+@keyframes gen-sweep {
+  0%, 72% { left: -75%; }
+  88%, 100% { left: 125%; }
+}
+
+/* Label leuchtet gold, wenn das Feld fokussiert ist */
+.gen-field:focus-within label { color: var(--gold-soft); }
+
+/* Ergebnis-Karte gleitet herein */
+.gen-result:not([hidden]) { animation: gen-fadein 0.5s ease; }
+
+/* Gold-Funken beim Generieren */
+.gen-spark {
+  position: fixed;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fbe9a6, #d9a93f);
+  box-shadow: 0 0 8px rgba(233, 197, 106, .8);
+  pointer-events: none;
+  z-index: 999;
+  animation: gen-spark-fly 0.8s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+}
+
+@keyframes gen-spark-fly {
+  from { transform: translate(0, 0) scale(1); opacity: 1; }
+  to   { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+}
 
 .gen-error {
   margin-top: 1rem;
@@ -332,7 +374,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gen-btn, .gen-badge::before, .gen-copied.pop, .gen-linkpreview { animation: none !important; }
+  .gen-btn, .gen-btn::after, .gen-badge::before, .gen-copied.pop,
+  .gen-linkpreview, .gen-result:not([hidden]), .gen-spark { animation: none !important; }
+  .gen-spark { display: none; }
 }
 
 /* ---- Mobile-Feinschliff ---- */
