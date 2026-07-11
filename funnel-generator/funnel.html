@@ -56,11 +56,6 @@
         <a data-href="ref" href="https://portal.kickstartercash.club" target="_blank" rel="noopener" class="kc-cta kc-glow" style="display:inline-flex;align-items:center;gap:10px;padding:17px 34px;border-radius:999px;background:linear-gradient(180deg,#F6DC8E 0%,#D9A93F 52%,#B07F2A 100%);color:#1a1206;font-weight:700;font-size:16px;letter-spacing:.2px;text-decoration:none;box-shadow:0 12px 34px rgba(216,160,55,.34),inset 0 1px 0 rgba(255,255,255,.6);border:1px solid rgba(255,236,176,.5);"><span data-bind="ctaText">Jetzt kostenlos teilnehmen</span> →</a>
         <a href="#anmeldung" class="kc-ghost" style="display:inline-flex;align-items:center;gap:10px;padding:17px 30px;border-radius:999px;background:transparent;color:#EBCB72;font-weight:600;font-size:16px;text-decoration:none;border:1px solid rgba(233,197,106,.4);">Platz reservieren</a>
       </div>
-
-      <div data-if="countdownEnabled" style="display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;font-size:14px;color:#B6A98E;">
-        <span style="text-transform:uppercase;letter-spacing:2px;font-size:12px;">Nächstes Live-Webinar in</span>
-        <span style="font-weight:700;color:#EBCB72;font-variant-numeric:tabular-nums;letter-spacing:1px;"><span data-bind="cdD">00</span>T : <span data-bind="cdH">00</span> : <span data-bind="cdM">00</span> : <span data-bind="cdS">00</span></span>
-      </div>
     </div>
   </section>
 
@@ -152,90 +147,36 @@
       <p style="font-size:17px;color:#B6A98E;margin:0;">Sei live dabei, wenn wir dir das komplette Ökosystem zeigen – und wie du sofort starten kannst.</p>
     </div>
 
-    <!-- Video-Platzhalter: promo/promo.html hier einhängen oder ?video=URL setzen -->
-    <div id="kc-video" data-reveal="up" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(233,197,106,.25);box-shadow:0 28px 80px rgba(0,0,0,.55);margin-bottom:clamp(32px,4vw,46px);background:radial-gradient(ellipse at center,rgba(28,23,15,1),#000);display:flex;align-items:center;justify-content:center;">
-      <div style="text-align:center;">
-        <div style="width:84px;height:84px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#F6DC8E,#B07F2A);box-shadow:0 0 40px rgba(233,197,106,.45);color:#1a1206;font-size:30px;padding-left:6px;">▶</div>
-        <div style="font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#B6A98E;">Promo-Video</div>
-        <div style="font-size:12.5px;color:#7d745f;margin-top:6px;">Wird hier eingebettet (<code style="color:#9f937c;">promo/promo.html</code>)</div>
-      </div>
-    </div>
-
-    <div data-if="countdownEnabled" style="text-align:center;">
-      <div style="font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#B6A98E;margin-bottom:20px;">
-        <span data-if="cdLive"><span style="color:#EBCB72;font-weight:700;">● Jetzt Live!</span></span>
-        <span data-if="cdPending">Das Webinar startet in</span>
-      </div>
-      <div style="display:flex;gap:clamp(10px,2vw,20px);justify-content:center;flex-wrap:wrap;margin-bottom:36px;">
-        <div style="min-width:84px;padding:20px 14px;border-radius:16px;background:linear-gradient(180deg,rgba(28,23,15,.95),rgba(13,11,8,.95));border:1px solid rgba(233,197,106,.22);"><div style="font-size:clamp(34px,5vw,52px);font-weight:800;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FBE9A6,#E7C167 50%,#B07F2A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;line-height:1;" data-bind="cdD">00</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9f937c;margin-top:8px;">Tage</div></div>
-        <div style="min-width:84px;padding:20px 14px;border-radius:16px;background:linear-gradient(180deg,rgba(28,23,15,.95),rgba(13,11,8,.95));border:1px solid rgba(233,197,106,.22);"><div style="font-size:clamp(34px,5vw,52px);font-weight:800;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FBE9A6,#E7C167 50%,#B07F2A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;line-height:1;" data-bind="cdH">00</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9f937c;margin-top:8px;">Stunden</div></div>
-        <div style="min-width:84px;padding:20px 14px;border-radius:16px;background:linear-gradient(180deg,rgba(28,23,15,.95),rgba(13,11,8,.95));border:1px solid rgba(233,197,106,.22);"><div style="font-size:clamp(34px,5vw,52px);font-weight:800;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FBE9A6,#E7C167 50%,#B07F2A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;line-height:1;" data-bind="cdM">00</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9f937c;margin-top:8px;">Minuten</div></div>
-        <div style="min-width:84px;padding:20px 14px;border-radius:16px;background:linear-gradient(180deg,rgba(28,23,15,.95),rgba(13,11,8,.95));border:1px solid rgba(233,197,106,.22);"><div style="font-size:clamp(34px,5vw,52px);font-weight:800;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FBE9A6,#E7C167 50%,#B07F2A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;line-height:1;" data-bind="cdS">00</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9f937c;margin-top:8px;">Sekunden</div></div>
-      </div>
+    <!-- Promo-Video: fest eingebettet, nicht änderbar -->
+    <div id="kc-video" data-reveal="up" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(233,197,106,.25);box-shadow:0 28px 80px rgba(0,0,0,.55);margin-bottom:clamp(32px,4vw,46px);background:#000;">
+      <iframe src="promo/promo.html" title="Kickstartercash.Club Promo-Video" loading="lazy" allow="autoplay; fullscreen" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block;"></iframe>
     </div>
 
     <div style="text-align:center;">
-      <a data-href="ref" href="https://portal.kickstartercash.club" target="_blank" rel="noopener" class="kc-cta kc-glow" style="display:inline-flex;align-items:center;gap:10px;padding:18px 40px;border-radius:999px;background:linear-gradient(180deg,#F6DC8E 0%,#D9A93F 52%,#B07F2A 100%);color:#1a1206;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 14px 40px rgba(216,160,55,.36),inset 0 1px 0 rgba(255,255,255,.6);border:1px solid rgba(255,236,176,.5);">Jetzt Ticket sichern →</a>
+      <a data-href="webinarUrl" href="https://portal.kickstartercash.club/public-webinars.php" target="_blank" rel="noopener" class="kc-cta kc-glow" style="display:inline-flex;align-items:center;gap:10px;padding:18px 40px;border-radius:999px;background:linear-gradient(180deg,#F6DC8E 0%,#D9A93F 52%,#B07F2A 100%);color:#1a1206;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 14px 40px rgba(216,160,55,.36),inset 0 1px 0 rgba(255,255,255,.6);border:1px solid rgba(255,236,176,.5);">Jetzt Ticket sichern →</a>
     </div>
   </section>
 
-  <!-- ============ LEAD FORM ============ -->
+  <!-- ============ WEBINAR-ANMELDUNG (Bild + Link) ============ -->
   <section id="anmeldung" style="position:relative;padding:clamp(56px,8vw,100px) clamp(16px,4vw,40px);background:linear-gradient(180deg,rgba(18,14,9,.7),rgba(10,8,6,.7));border-top:1px solid rgba(233,197,106,.14);">
-    <div style="max-width:680px;margin:0 auto;">
+    <div style="max-width:880px;margin:0 auto;">
       <div data-reveal="up" style="text-align:center;margin-bottom:36px;">
         <div style="font-size:12.5px;letter-spacing:3px;color:#B07F2A;font-weight:600;text-transform:uppercase;margin-bottom:16px;">Kostenlos &amp; unverbindlich</div>
         <h2 style="font-family:Sora,sans-serif;font-weight:800;font-size:clamp(28px,4vw,44px);line-height:1.08;letter-spacing:-.5px;margin:0 0 14px;color:#F3ECDD;">Sichere dir deinen <span style="background:linear-gradient(180deg,#FBE9A6,#B07F2A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;">Platz</span></h2>
-        <p style="font-size:16px;color:#B6A98E;margin:0;">Trag dich ein – dein persönlicher Berater meldet sich bei dir und sichert dir den Zugang.</p>
+        <p style="font-size:16px;color:#B6A98E;margin:0;">Sichere dir jetzt einen Platz in unserem Webinar – klick aufs Bild und melde dich direkt an.</p>
       </div>
 
-      <div data-reveal="up" style="padding:clamp(24px,4vw,40px);border-radius:22px;background:linear-gradient(180deg,rgba(28,23,15,.92),rgba(13,11,8,.95));border:1px solid rgba(233,197,106,.22);box-shadow:0 28px 80px rgba(0,0,0,.5);">
+      <a data-href="webinarUrl" href="https://portal.kickstartercash.club/public-webinars.php" target="_blank" rel="noopener" data-reveal="up" class="kc-imglink" style="display:block;border-radius:22px;overflow:hidden;border:1px solid rgba(233,197,106,.25);box-shadow:0 28px 80px rgba(0,0,0,.5);line-height:0;">
+        <img src="assets/webinar.jpg" alt="Sei live dabei! Im Live-Webinar – Kickstartercash.Club" style="width:100%;display:block;" onerror="this.closest('a').style.display='none';document.getElementById('kc-webinar-fallback').style.display='block';">
+      </a>
+      <div id="kc-webinar-fallback" style="display:none;text-align:center;padding:clamp(30px,5vw,54px);border-radius:22px;background:linear-gradient(180deg,rgba(28,23,15,.92),rgba(13,11,8,.95));border:1px solid rgba(233,197,106,.22);box-shadow:0 28px 80px rgba(0,0,0,.5);">
+        <div style="width:84px;height:84px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#F6DC8E,#B07F2A);box-shadow:0 0 40px rgba(233,197,106,.45);color:#1a1206;font-size:30px;">🎟</div>
+        <div style="font-family:Sora,sans-serif;font-weight:800;font-size:clamp(20px,3vw,28px);color:#F3ECDD;margin-bottom:8px;">Sei live dabei – im Live-Webinar!</div>
+        <div style="font-size:14.5px;color:#B6A98E;">Klick unten und sichere dir deinen Platz.</div>
+      </div>
 
-        <form id="kc-lead-form" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;">
-          <div>
-            <label style="display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#B6A98E;margin-bottom:8px;">Vorname *</label>
-            <input name="vorname" class="kc-input" placeholder="Vorname" style="width:100%;box-sizing:border-box;padding:14px 16px;background:rgba(8,6,4,.6);border:1px solid rgba(233,197,106,.22);border-radius:12px;color:#F3ECDD;font-family:Sora,sans-serif;font-size:15px;">
-          </div>
-          <div>
-            <label style="display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#B6A98E;margin-bottom:8px;">Nachname</label>
-            <input name="nachname" class="kc-input" placeholder="Nachname" style="width:100%;box-sizing:border-box;padding:14px 16px;background:rgba(8,6,4,.6);border:1px solid rgba(233,197,106,.22);border-radius:12px;color:#F3ECDD;font-family:Sora,sans-serif;font-size:15px;">
-          </div>
-          <div>
-            <label style="display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#B6A98E;margin-bottom:8px;">E-Mail *</label>
-            <input name="email" type="email" class="kc-input" placeholder="name@mail.com" style="width:100%;box-sizing:border-box;padding:14px 16px;background:rgba(8,6,4,.6);border:1px solid rgba(233,197,106,.22);border-radius:12px;color:#F3ECDD;font-family:Sora,sans-serif;font-size:15px;">
-          </div>
-          <div>
-            <label style="display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#B6A98E;margin-bottom:8px;">Telefon / WhatsApp</label>
-            <input name="telefon" class="kc-input" placeholder="+49 …" style="width:100%;box-sizing:border-box;padding:14px 16px;background:rgba(8,6,4,.6);border:1px solid rgba(233,197,106,.22);border-radius:12px;color:#F3ECDD;font-family:Sora,sans-serif;font-size:15px;">
-          </div>
-          <div style="grid-column:1/-1;">
-            <label style="display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#B6A98E;margin-bottom:8px;">Land</label>
-            <input name="land" class="kc-input" placeholder="z. B. Deutschland" style="width:100%;box-sizing:border-box;padding:14px 16px;background:rgba(8,6,4,.6);border:1px solid rgba(233,197,106,.22);border-radius:12px;color:#F3ECDD;font-family:Sora,sans-serif;font-size:15px;">
-          </div>
-          <div style="grid-column:1/-1;">
-            <label style="display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#B6A98E;margin-bottom:8px;">Nachricht / Frage</label>
-            <textarea name="nachricht" class="kc-input" rows="3" placeholder="Worum geht's? (optional)" style="width:100%;box-sizing:border-box;padding:14px 16px;background:rgba(8,6,4,.6);border:1px solid rgba(233,197,106,.22);border-radius:12px;color:#F3ECDD;font-family:Sora,sans-serif;font-size:15px;resize:vertical;"></textarea>
-          </div>
-          <label style="grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:13.5px;color:#9f937c;">
-            <input name="consent" type="checkbox" style="margin-top:3px;width:18px;height:18px;accent-color:#D9A93F;flex:none;">
-            <span>Ich bin mit der Verarbeitung meiner Daten gemäß <a data-href="datenschutzUrl" href="https://portal.kickstartercash.club" target="_blank" rel="noopener" style="color:#EBCB72;">Datenschutzerklärung</a> einverstanden. *</span>
-          </label>
-
-          <div id="kc-lead-error" hidden style="grid-column:1/-1;padding:12px 16px;border-radius:12px;background:rgba(180,60,40,.14);border:1px solid rgba(220,90,70,.4);color:#f0b9ad;font-size:14px;"></div>
-
-          <button type="submit" style="grid-column:1/-1;margin-top:4px;padding:18px;border-radius:14px;border:1px solid rgba(255,236,176,.5);background:linear-gradient(180deg,#F6DC8E 0%,#D9A93F 52%,#B07F2A 100%);color:#1a1206;font-family:Sora,sans-serif;font-weight:700;font-size:16px;letter-spacing:.3px;cursor:pointer;box-shadow:0 12px 34px rgba(216,160,55,.32),inset 0 1px 0 rgba(255,255,255,.6);">Jetzt unverbindlich anfragen →</button>
-          <div style="grid-column:1/-1;text-align:center;font-size:12.5px;color:#7d745f;">🔒 Deine Daten werden vertraulich behandelt. Kein Spam.</div>
-        </form>
-
-        <div id="kc-lead-success" hidden style="text-align:center;padding:18px 6px;">
-          <div style="width:64px;height:64px;border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#F6DC8E,#B07F2A);box-shadow:0 0 30px rgba(233,197,106,.4);color:#1a1206;font-size:30px;font-weight:800;">✓</div>
-          <h3 style="font-family:Sora,sans-serif;font-weight:800;font-size:26px;margin:0 0 12px;color:#F3ECDD;">Geschafft – willkommen!</h3>
-          <p style="font-size:16px;color:#B6A98E;margin:0 auto 28px;max-width:440px;">Deine Anfrage ist eingegangen. Dein persönlicher Berater meldet sich in Kürze bei dir. Du kannst ihn auch direkt kontaktieren:</p>
-          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-            <a id="kc-lead-wa" href="#" target="_blank" rel="noopener" class="kc-cta" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:linear-gradient(180deg,#F6DC8E,#B07F2A);color:#1a1206;font-weight:700;font-size:15px;text-decoration:none;border:1px solid rgba(255,236,176,.5);">Per WhatsApp senden</a>
-            <a data-href="ref" href="https://portal.kickstartercash.club" target="_blank" rel="noopener" class="kc-ghost" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#EBCB72;font-weight:600;font-size:15px;text-decoration:none;border:1px solid rgba(233,197,106,.4);">Direkt zum Portal</a>
-          </div>
-          <button id="kc-lead-reset" type="button" style="margin-top:22px;background:none;border:none;color:#7d745f;font-family:Sora,sans-serif;font-size:13px;cursor:pointer;text-decoration:underline;">Weitere Anfrage senden</button>
-        </div>
+      <div data-reveal="up" style="text-align:center;margin-top:clamp(24px,4vw,34px);">
+        <a data-href="webinarUrl" href="https://portal.kickstartercash.club/public-webinars.php" target="_blank" rel="noopener" class="kc-cta kc-glow" style="display:inline-flex;align-items:center;gap:10px;padding:18px 40px;border-radius:999px;background:linear-gradient(180deg,#F6DC8E 0%,#D9A93F 52%,#B07F2A 100%);color:#1a1206;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 14px 40px rgba(216,160,55,.36),inset 0 1px 0 rgba(255,255,255,.6);border:1px solid rgba(255,236,176,.5);">Jetzt Platz im Webinar sichern →</a>
       </div>
     </div>
   </section>
@@ -255,7 +196,7 @@
       </div>
       <div>
         <h3 style="font-family:Sora,sans-serif;font-weight:800;font-size:clamp(24px,3vw,32px);margin:0 0 4px;color:#F3ECDD;" data-bind="sName">Nadja Masurkewitsch</h3>
-        <div style="font-size:15px;color:#EBCB72;font-weight:600;margin-bottom:6px;" data-bind="sRole">Vertriebspartner</div>
+        <div style="font-size:15px;color:#EBCB72;font-weight:600;margin-bottom:6px;" data-bind="sRole">Offizieller Partner</div>
         <div style="font-size:14px;color:#9f937c;margin-bottom:22px;">📍 <span data-bind="sCity">Duisburg</span></div>
 
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">

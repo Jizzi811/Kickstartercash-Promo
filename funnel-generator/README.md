@@ -3,7 +3,7 @@
 Eine Homepage-Komponente, mit der **Partner ihre eigenen Kontaktdaten**
 eintragen und per Klick auf **„Funnel generieren"** ihren **persönlichen,
 mit ihren Daten gefüllten Funnel** erhalten – als Live-Vorschau und als
-teilbaren Link.
+teilbaren, kurzen Link.
 
 ## Dateien
 
@@ -11,27 +11,58 @@ teilbaren Link.
 | ---------------- | ------------------------------------------------------------ |
 | `index.html`     | Der Generator (Formular + Vorschau + teilbarer Link)         |
 | `generator.css`  | Styling des Generators (Funnel-Look)                         |
-| `generator.js`   | Logik: Formular → URL-Parameter → Vorschau & Link            |
-| `funnel.html`    | Das Funnel-Template (wird über URL-Parameter personalisiert) |
+| `generator.js`   | Logik: Formular → kurzer Link → Vorschau                     |
+| `funnel.html`    | Das Funnel-Template (personalisiert über URL-Parameter)      |
 | `funnel.css`     | Styling des Funnels (1:1 aus dem Original)                   |
-| `funnel.js`      | Personalisierung, Countdown, Lead-Formular (WhatsApp)        |
-| `assets/`        | Bilder (Logo, Hero-Logo, Weltkarte, Hintergrund, Berater)    |
+| `funnel.js`      | Personalisierung + Scroll-Reveals                            |
+| `assets/`        | Bilder (Logo, Hero, Weltkarte, Hintergrund, Berater, Webinar)|
+| `promo/promo.html` | Promo-Video (fest eingebettet, nicht änderbar)             |
 
-## So funktioniert's
+## Das Username-Prinzip
 
-1. Der Partner öffnet `index.html`.
-2. Er trägt seine Daten ein (Name, Kontakt, **Reflink**, optional Telegram/
-   Instagram, Webinar-Termin …).
-3. Klick auf **„Funnel generieren"**.
-4. Es erscheint sofort:
-   - eine **Live-Vorschau** des fertigen Funnels,
-   - ein **teilbarer Link** (die Daten stecken in den URL-Parametern),
-   - Buttons zum **Kopieren** und **Öffnen in neuem Tab**.
-5. Diesen Link gibt der Partner an seine Interessenten weiter – jeder sieht
-   den Funnel mit **seinen** Kontaktdaten und **seinem** Reflink.
+Der Partner trägt nur seinen **Kickstartercash-Username** ein – daraus werden
+alle Portal-Links **automatisch und fest** gebaut:
 
-Es ist **kein Backend nötig** – alles läuft rein im Browser (statisch
-hostbar, z. B. GitHub Pages, Netlify, eigener Webspace).
+| Link          | Aufbau                                                              |
+| ------------- | ------------------------------------------------------------------- |
+| Reflink       | `https://portal.kickstartercash.club/register.php?ref=USERNAME`     |
+| Webinar       | `https://portal.kickstartercash.club/public-webinars.php?ref=USERNAME` |
+| Impressum     | `https://portal.kickstartercash.club/legal.php?doc=impressum&ref=USERNAME` |
+| Datenschutz   | `https://portal.kickstartercash.club/legal.php?doc=datenschutz&ref=USERNAME` |
+
+**Fest verdrahtet (nicht änderbar):** Rolle („Offizieller Partner"),
+Promo-Video, Webinar-Bild, Impressum-/Datenschutz-Aufbau.
+
+## Kurzer Funnel-Link
+
+Da fast alles fix ist, bleibt der generierte Link kurz – er enthält nur den
+Username und die Kontaktdaten (kompakte Parameter):
+
+```
+funnel.html?u=johann&n=Johann+Schorn&c=Istanbul&e=mail@x.com&p=%2B905...
+```
+
+| Parameter | Bedeutung                       |
+| --------- | ------------------------------- |
+| `u`       | Kickstartercash-Username        |
+| `n`       | Name                            |
+| `c`       | Stadt                           |
+| `e`       | E-Mail                          |
+| `p`       | Telefon                         |
+| `w`       | WhatsApp (weggelassen = Telefon)|
+| `t`       | Telegram-Handle                 |
+| `i`       | Instagram-Handle                |
+| `cta`     | CTA-Text (nur wenn geändert)    |
+
+Die alten, langen Parameternamen (`name`, `city`, `email`, …) funktionieren
+weiterhin (Rückwärtskompatibilität für bereits geteilte Links).
+
+## Webinar-Sektion („Sichere dir deinen Platz")
+
+Statt eines Formulars zeigt der Funnel ein festes **Webinar-Bild**
+(`assets/webinar.jpg`), das direkt auf den persönlichen Webinar-Link des
+Partners verlinkt – plus einen goldenen CTA-Button darunter.
+Fehlt die Bilddatei, erscheint automatisch ein gestalteter Fallback-Block.
 
 ## Vorschau lokal
 
@@ -41,67 +72,18 @@ python3 -m http.server 8080
 # dann http://localhost:8080/ öffnen
 ```
 
-> Direkt per Doppelklick (`file://`) funktioniert es auch, nur laden manche
-> Browser dann keine externen Google-Fonts – auf einem echten Server ist das
-> kein Thema.
-
-## URL-Parameter des Funnels
-
-`funnel.html` liest folgende Parameter (alle optional, sinnvolle Defaults):
-
-| Parameter     | Bedeutung                                        |
-| ------------- | ------------------------------------------------ |
-| `name`        | Name des Beraters/Partners                       |
-| `role`        | Rolle / Titel                                    |
-| `city`        | Stadt                                            |
-| `email`       | E-Mail (Kontakt + `mailto:`)                     |
-| `phone`       | Telefon (`tel:`)                                 |
-| `wa`          | WhatsApp-Nummer (`wa.me` + Lead-Weiterleitung)   |
-| `tg`          | Telegram-Handle (`@name`)                        |
-| `ig`          | Instagram-Handle (`@name`)                       |
-| `ref`         | **Reflink** – Ziel aller CTA-Buttons             |
-| `cta`         | Text des Haupt-CTA-Buttons                       |
-| `webinar`     | Webinar-Termin (ISO, z. B. `2026-08-15T19:00`)   |
-| `countdown`   | `1` = Countdown anzeigen                         |
-| `impressum`   | Impressum-URL                                    |
-| `datenschutz` | Datenschutz-URL                                  |
-| `video`       | URL fürs Promo-Video-iframe (optional)           |
-
-Beispiel:
-
-```
-funnel.html?name=Max%20Mustermann&city=Berlin&ref=https://portal.kickstartercash.club/?ref=MAX&countdown=1&webinar=2026-08-15T19:00
-```
-
 ## Promo-Video
 
-Der Webinar-Bereich bettet standardmäßig das mitgelieferte Promo-Video
-`promo/promo.html` ein (eine eigenständige, animierte Präsentation mit Ton).
+`promo/promo.html` ist fest im Webinar-Bereich eingebettet (lazy iframe).
 
-> **Hinweis:** `promo/promo.html` lädt zur Laufzeit React und Schriften aus dem
-> Netz (CDN) – auf einem echten Server mit Internet läuft es problemlos; ohne
-> Internet (reines `file://` offline) bleibt der Rahmen leer.
+> **Hinweis:** Die Datei lädt zur Laufzeit React und Schriften aus dem Netz
+> (CDN) – auf einem echten Server mit Internet läuft sie problemlos.
 
-Überschreiben/ausblenden über den Parameter `video`:
+## Anpassen (Entwickler)
 
-- **Standard:** `video` weglassen → `promo/promo.html` wird eingebettet.
-- **Eigenes Embed:** `video=https://…` (z. B. YouTube-Embed oder `.mp4`-Seite).
-- **Ausblenden:** `video=off` → Platzhalter statt Video.
-
-Im Generator entspricht das dem Feld „Promo-Video".
-
-## Lead-Formular
-
-Das Anmeldeformular im Funnel funktioniert ohne Backend: Nach dem Absenden
-kann der Interessent seine Daten **per WhatsApp** direkt an die hinterlegte
-Nummer des Partners senden. Für eine serverseitige Speicherung (Mailtool /
-CRM) kann in `funnel.js` zusätzlich ein `fetch`-POST ergänzt werden.
-
-## Anpassen
-
-- **Design:** zentrale Tokens in `funnel.css` bzw. `generator.css`
-  (`--gold`, `--grad`, Schwarz `#0a0806` …).
-- **Inhalte/Texte:** direkt in `funnel.html`.
-- **Weitere Felder:** Feld in `index.html` ergänzen, Namen in
-  `generator.js` (`TEXT_FIELDS`) aufnehmen und in `funnel.js` (`cfg`/`vals`)
+- **Design:** zentrale Tokens in `funnel.css` / `generator.css`.
+- **Portal-Basis-URL & Link-Aufbau:** oben in `funnel.js` (`PORTAL`,
+  `portalLink()`, `legalLink()`) und `generator.js` (`PORTAL`).
+- **Weitere Felder:** Feld in `index.html` ergänzen, Kürzel in
+  `generator.js` (`short`-Map) aufnehmen und in `funnel.js` (`cfg`/`vals`)
   einbinden.

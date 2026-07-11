@@ -22,19 +22,31 @@
     <div class="gen-card">
       <form id="gen-form" novalidate>
 
+        <div class="gen-section-label">Dein Kickstartercash-Username</div>
+        <div class="gen-grid">
+          <div class="gen-field full">
+            <label for="f-user">Username *</label>
+            <input type="text" id="f-user" name="user" placeholder="DEINUSERNAME" autocomplete="username" required>
+            <span class="hint">Trage hier deinen Usernamen von Kickstartercash.club ein – er wird automatisch
+            in deinen Reflink, den Webinar-Link sowie Impressum &amp; Datenschutz eingesetzt.</span>
+            <div id="gen-linkpreview" class="gen-linkpreview" hidden>
+              <div>→ Reflink: <code id="lp-ref"></code></div>
+              <div>→ Webinar: <code id="lp-web"></code></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gen-divider"></div>
+
         <div class="gen-section-label">Dein Profil</div>
         <div class="gen-grid">
           <div class="gen-field">
             <label for="f-name">Name *</label>
-            <input type="text" id="f-name" name="name" placeholder="z. B. Nadja Masurkewitsch" autocomplete="name" required>
-          </div>
-          <div class="gen-field">
-            <label for="f-role">Rolle / Titel</label>
-            <input type="text" id="f-role" name="role" placeholder="z. B. Vertriebspartner" value="Vertriebspartner">
+            <input type="text" id="f-name" name="name" placeholder="z. B. Johann Schorn" autocomplete="name" required>
           </div>
           <div class="gen-field">
             <label for="f-city">Stadt</label>
-            <input type="text" id="f-city" name="city" placeholder="z. B. Duisburg">
+            <input type="text" id="f-city" name="city" placeholder="z. B. Istanbul">
           </div>
         </div>
 
@@ -52,8 +64,8 @@
           </div>
           <div class="gen-field">
             <label for="f-wa">WhatsApp-Nummer</label>
-            <input type="tel" id="f-wa" name="wa" placeholder="+491750000000">
-            <span class="hint">Für den „Per WhatsApp senden“-Button im Funnel.</span>
+            <input type="tel" id="f-wa" name="wa" placeholder="leer = wie Telefon">
+            <span class="hint">Für den WhatsApp-Button im Funnel. Leer lassen = Telefonnummer wird genutzt.</span>
           </div>
           <div class="gen-field">
             <label for="f-tg">Telegram (optional)</label>
@@ -67,44 +79,12 @@
 
         <div class="gen-divider"></div>
 
-        <div class="gen-section-label">Reflink &amp; Call-to-Action</div>
+        <div class="gen-section-label">Call-to-Action</div>
         <div class="gen-grid">
-          <div class="gen-field full">
-            <label for="f-ref">Dein Reflink *</label>
-            <input type="url" id="f-ref" name="ref" placeholder="https://portal.kickstartercash.club/?ref=DEINCODE" required>
-            <span class="hint">Ziel-URL aller „Mitglied werden“ / CTA-Buttons.</span>
-          </div>
           <div class="gen-field full">
             <label for="f-cta">CTA-Button-Text</label>
             <input type="text" id="f-cta" name="cta" placeholder="Jetzt kostenlos teilnehmen" value="Jetzt kostenlos teilnehmen">
           </div>
-        </div>
-
-        <div class="gen-divider"></div>
-
-        <div class="gen-section-label">Webinar &amp; Rechtliches</div>
-        <div class="gen-grid">
-          <div class="gen-field">
-            <label for="f-webinar">Webinar-Termin</label>
-            <input type="datetime-local" id="f-webinar" name="webinar">
-          </div>
-          <div class="gen-field">
-            <label for="f-impressum">Impressum-URL</label>
-            <input type="url" id="f-impressum" name="impressum" placeholder="https://…">
-          </div>
-          <div class="gen-field">
-            <label for="f-datenschutz">Datenschutz-URL</label>
-            <input type="url" id="f-datenschutz" name="datenschutz" placeholder="https://…">
-          </div>
-          <div class="gen-field full">
-            <label for="f-video">Promo-Video (optional)</label>
-            <input type="text" id="f-video" name="video" placeholder="leer lassen = Standard-Promo · eigene URL · „off“ = ausblenden">
-            <span class="hint">Standardmäßig ist das Kickstartercash-Promo-Video eingebettet. Eigene Embed-URL eintragen zum Ersetzen, oder <code>off</code> zum Ausblenden.</span>
-          </div>
-          <label class="gen-check">
-            <input type="checkbox" id="f-countdown" name="countdown">
-            <span>Countdown zum Webinar-Termin anzeigen</span>
-          </label>
         </div>
 
         <div class="gen-divider"></div>

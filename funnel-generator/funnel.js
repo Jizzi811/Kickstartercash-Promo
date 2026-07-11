@@ -1,52 +1,71 @@
 /* =========================================================
    Kickstartercash.Club – Funnel-Logik
-   Personalisiert das Template über URL-Parameter, steuert
-   Countdown und Lead-Formular (WhatsApp an den Berater).
-   Vanilla JS, keine Abhängigkeiten.
+   Personalisiert das Template über kompakte URL-Parameter.
+   Alle Portal-Links (Reflink, Webinar, Impressum, Datenschutz)
+   werden fest aus dem Username gebaut – nur die Kontaktdaten
+   des Partners sind variabel. Vanilla JS, keine Abhängigkeiten.
 
-   Erwartete URL-Parameter (alle optional):
-     ref, cta, name, role, city, phone, wa, email, tg, ig,
-     webinar (ISO-Datum), countdown (1/0), impressum,
-     datenschutz, video (URL fürs Promo-iframe)
+   Parameter (kurz / legacy):
+     u  (user)   – Kickstartercash-Username (baut alle Portal-Links)
+     n  (name)   – Name des Partners
+     c  (city)   – Stadt
+     e  (email)  – E-Mail
+     p  (phone)  – Telefon
+     w  (wa)     – WhatsApp (leer = Telefon)
+     t  (tg)     – Telegram-Handle
+     i  (ig)     – Instagram-Handle
+     cta         – CTA-Button-Text
    ========================================================= */
 (function () {
   "use strict";
 
-  var DEFAULT_URL = "https://portal.kickstartercash.club";
+  document.documentElement.classList.add("js");
+
+  var PORTAL = "https://portal.kickstartercash.club";
   var params = new URLSearchParams(window.location.search);
-  function p(key, fallback) {
-    var v = params.get(key);
-    return v !== null && v !== "" ? v : fallback;
+
+  function p(keys, fallback) {
+    for (var k = 0; k < keys.length; k++) {
+      var v = params.get(keys[k]);
+      if (v !== null && v !== "") return v;
+    }
+    return fallback;
   }
   function digits(x) { return String(x || "").replace(/[^0-9]/g, ""); }
 
+  var username = (p(["u", "user", "username"], "")).trim().replace(/^@/, "").replace(/\s+/g, "");
+
+  /* Portal-Links: fest verdrahtet, nur der Username wird eingesetzt */
+  function portalLink(path) {
+    return PORTAL + path + (username ? "?ref=" + encodeURIComponent(username) : "");
+  }
+  function legalLink(doc) {
+    return PORTAL + "/legal.php?doc=" + doc + (username ? "&ref=" + encodeURIComponent(username) : "");
+  }
+
   var cfg = {
-    ref: p("ref", DEFAULT_URL),
-    ctaText: p("cta", "Jetzt kostenlos teilnehmen"),
-    sName: p("name", "Nadja Masurkewitsch"),
-    sRole: p("role", "Vertriebspartner"),
-    sCity: p("city", "Duisburg"),
-    sPhone: p("phone", "+49 175 9913517"),
-    sWa: p("wa", "+491759913517"),
-    sEmail: p("email", "nmasurk@gmail.com"),
-    sTelegram: p("tg", ""),
-    sInstagram: p("ig", ""),
-    webinarDate: p("webinar", ""),
-    countdownEnabled: p("countdown", "0") === "1",
-    impressumUrl: p("impressum", DEFAULT_URL),
-    datenschutzUrl: p("datenschutz", DEFAULT_URL),
-    // Standard-Promo-Video; per ?video=… überschreibbar, ?video=off blendet es aus
-    video: p("video", "promo/promo.html")
+    sName: p(["n", "name"], "Dein Name"),
+    sCity: p(["c", "city"], "Online"),
+    sEmail: p(["e", "email"], ""),
+    sPhone: p(["p", "phone"], ""),
+    sWa: p(["w", "wa"], "") || p(["p", "phone"], ""),
+    sTelegram: p(["t", "tg"], ""),
+    sInstagram: p(["i", "ig"], ""),
+    ctaText: p(["cta"], "Jetzt kostenlos teilnehmen"),
+    ref: username ? portalLink("/register.php") : p(["ref"], PORTAL),
+    webinarUrl: portalLink("/public-webinars.php"),
+    impressumUrl: legalLink("impressum"),
+    datenschutzUrl: legalLink("datenschutz")
   };
 
-  // Abgeleitete Werte
   var tg = cfg.sTelegram.trim();
   var ig = cfg.sInstagram.trim();
   var vals = {
     ref: cfg.ref,
+    webinarUrl: cfg.webinarUrl,
     ctaText: cfg.ctaText,
     sName: cfg.sName,
-    sRole: cfg.sRole,
+    sRole: "Offizieller Partner", /* fest, nicht änderbar */
     sCity: cfg.sCity,
     sPhone: cfg.sPhone,
     sEmail: cfg.sEmail,
@@ -61,145 +80,49 @@
     datenschutzUrl: cfg.datenschutzUrl,
     hasTelegram: !!tg,
     hasInstagram: !!ig,
-    countdownEnabled: cfg.countdownEnabled,
-    cdD: "00", cdH: "00", cdM: "00", cdS: "00",
-    cdLive: false, cdPending: cfg.countdownEnabled
+    hasPhone: !!digits(cfg.sPhone),
+    hasWa: !!digits(cfg.sWa),
+    hasEmail: !!cfg.sEmail
   };
 
   function applyBindings() {
-    // Text
     document.querySelectorAll("[data-bind]").forEach(function (el) {
       var key = el.getAttribute("data-bind");
       if (key in vals && vals[key] !== undefined) el.textContent = vals[key];
     });
-    // Links
     document.querySelectorAll("[data-href]").forEach(function (el) {
       var key = el.getAttribute("data-href");
       if (key in vals && vals[key]) el.setAttribute("href", vals[key]);
     });
-    // Bedingte Blöcke
     document.querySelectorAll("[data-if]").forEach(function (el) {
       var key = el.getAttribute("data-if");
       el.hidden = !vals[key];
     });
   }
 
-  /* ---- Promo-Video: Standard promo/promo.html, per ?video= überschreibbar ---- */
-  function initVideo() {
-    if (!cfg.video || cfg.video === "off") return; // Platzhalter behalten
-    var box = document.getElementById("kc-video");
-    if (!box) return;
-    box.innerHTML = "";
-    var frame = document.createElement("iframe");
-    frame.src = cfg.video;
-    frame.title = "Kickstartercash.Club Promo-Video";
-    frame.loading = "lazy";
-    frame.setAttribute("allow", "autoplay; fullscreen");
-    frame.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;display:block;";
-    box.appendChild(frame);
-  }
-
-  /* ---- Countdown ---- */
-  var timer = null;
-  function pad(n) { return String(n).padStart(2, "0"); }
-  function targetTime() {
-    var raw = (cfg.webinarDate || "").trim();
-    var t = raw ? Date.parse(raw) : NaN;
-    if (isNaN(t)) t = Date.now() + 5 * 24 * 3600 * 1000;
-    return t;
-  }
-  function setCountdownText() {
-    document.querySelectorAll('[data-bind="cdD"]').forEach(function (e) { e.textContent = vals.cdD; });
-    document.querySelectorAll('[data-bind="cdH"]').forEach(function (e) { e.textContent = vals.cdH; });
-    document.querySelectorAll('[data-bind="cdM"]').forEach(function (e) { e.textContent = vals.cdM; });
-    document.querySelectorAll('[data-bind="cdS"]').forEach(function (e) { e.textContent = vals.cdS; });
-    document.querySelectorAll('[data-if="cdLive"]').forEach(function (e) { e.hidden = !vals.cdLive; });
-    document.querySelectorAll('[data-if="cdPending"]').forEach(function (e) { e.hidden = !vals.cdPending; });
-  }
-  function tick() {
-    var diff = targetTime() - Date.now();
-    if (diff <= 0) {
-      vals.cdLive = true; vals.cdPending = false;
-      vals.cdD = vals.cdH = vals.cdM = vals.cdS = "00";
-    } else {
-      vals.cdLive = false; vals.cdPending = true;
-      vals.cdD = pad(Math.floor(diff / 86400000));
-      vals.cdH = pad(Math.floor((diff % 86400000) / 3600000));
-      vals.cdM = pad(Math.floor((diff % 3600000) / 60000));
-      vals.cdS = pad(Math.floor((diff % 60000) / 1000));
+  /* ---- Scroll-Reveals: Elemente erscheinen sanft beim Reinscrollen ---- */
+  function initReveal() {
+    var nodes = document.querySelectorAll("[data-reveal]");
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window)) {
+      nodes.forEach(function (n) { n.classList.add("kc-in"); });
+      return;
     }
-    setCountdownText();
-  }
-  function initCountdown() {
-    if (!cfg.countdownEnabled) return;
-    tick();
-    timer = setInterval(tick, 1000);
-  }
-
-  /* ---- Lead-Formular ---- */
-  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-  function buildLeadWaHref(f) {
-    var lines = [
-      "Neue Anfrage über den Kickstartercash.Club Funnel:",
-      "Name: " + f.vorname + " " + f.nachname,
-      "E-Mail: " + f.email,
-      f.telefon ? "Telefon: " + f.telefon : "",
-      f.land ? "Land: " + f.land : "",
-      f.nachricht ? "Nachricht: " + f.nachricht : ""
-    ].filter(Boolean);
-    return "https://wa.me/" + digits(cfg.sWa) + "?text=" + encodeURIComponent(lines.join("\n"));
-  }
-  function initForm() {
-    var form = document.getElementById("kc-lead-form");
-    if (!form) return;
-    var errorEl = document.getElementById("kc-lead-error");
-    var successEl = document.getElementById("kc-lead-success");
-    var waLink = document.getElementById("kc-lead-wa");
-    var resetBtn = document.getElementById("kc-lead-reset");
-
-    function showError(msg) {
-      if (!errorEl) return;
-      errorEl.textContent = msg || "";
-      errorEl.hidden = !msg;
-    }
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var f = {
-        vorname: (form.vorname.value || "").trim(),
-        nachname: (form.nachname.value || "").trim(),
-        email: (form.email.value || "").trim(),
-        telefon: (form.telefon.value || "").trim(),
-        land: (form.land.value || "").trim(),
-        nachricht: (form.nachricht.value || "").trim(),
-        consent: form.consent.checked
-      };
-      if (!f.vorname || !isValidEmail(f.email) || !f.consent) {
-        showError("Bitte fülle Vorname, eine gültige E-Mail und das Einverständnis aus.");
-        return;
-      }
-      showError("");
-      if (waLink) waLink.setAttribute("href", buildLeadWaHref(f));
-      form.hidden = true;
-      if (successEl) successEl.hidden = false;
-    });
-
-    if (resetBtn) {
-      resetBtn.addEventListener("click", function () {
-        form.reset();
-        if (successEl) successEl.hidden = true;
-        form.hidden = false;
-        showError("");
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("kc-in");
+          io.unobserve(en.target);
+        }
       });
-    }
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    nodes.forEach(function (n) { io.observe(n); });
   }
 
   function boot() {
     applyBindings();
-    initVideo();
-    initCountdown();
-    initForm();
-    document.title = "Kickstartercash.Club – " + cfg.sName;
+    initReveal();
+    document.title = "Kickstartercash.Club – " + vals.sName;
   }
 
   if (document.readyState === "loading") {

@@ -164,6 +164,24 @@ body {
 
 .gen-field .hint { font-size: 0.72rem; color: var(--faint); margin-top: 0.4rem; }
 
+/* Live-Vorschau der aus dem Username gebauten Links */
+.gen-linkpreview {
+  margin-top: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(233, 197, 106, 0.05);
+  border: 1px dashed rgba(233, 197, 106, 0.3);
+  font-size: 0.74rem;
+  color: var(--muted-2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  animation: gen-fadein 0.3s ease;
+  overflow-wrap: anywhere;
+}
+
+.gen-linkpreview code { color: var(--gold-soft); font-family: ui-monospace, monospace; font-size: 0.72rem; }
+
 .gen-check {
   grid-column: 1 / -1;
   display: flex;
@@ -201,8 +219,8 @@ body {
   transition: transform 0.25s ease;
 }
 
-.gen-btn:hover { transform: translateY(-2px); }
-.gen-btn:active { transform: translateY(0); }
+.gen-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.gen-btn:active { transform: translateY(0) scale(0.985); }
 
 .gen-error {
   margin-top: 1rem;
@@ -275,6 +293,17 @@ body {
 .gen-mini-btn.ghost:hover { background: rgba(233, 197, 106, 0.08); border-color: rgba(233, 197, 106, 0.7); }
 
 .gen-copied { font-size: 0.78rem; color: var(--gold-soft); min-height: 1rem; margin-bottom: 0.6rem; }
+.gen-copied.pop { animation: gen-pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4); }
+
+@keyframes gen-pop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gen-fadein {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 .gen-preview-frame {
   width: 100%;
@@ -303,5 +332,16 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gen-btn, .gen-badge::before { animation: none !important; }
+  .gen-btn, .gen-badge::before, .gen-copied.pop, .gen-linkpreview { animation: none !important; }
+}
+
+/* ---- Mobile-Feinschliff ---- */
+@media (max-width: 560px) {
+  .gen-wrap { padding-left: 12px; padding-right: 12px; }
+  .gen-card { padding: 18px 14px; border-radius: 16px; }
+  .gen-grid { grid-template-columns: 1fr; }
+  .gen-link-row { flex-direction: column; }
+  .gen-link-row input { flex: 1 1 auto; }
+  .gen-mini-btn { justify-content: center; }
+  .gen-preview-frame { height: 60vh; min-height: 420px; }
 }

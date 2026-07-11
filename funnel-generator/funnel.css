@@ -9,6 +9,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   background: #0a0806;
@@ -16,11 +18,20 @@ body {
   font-family: "Sora", system-ui, -apple-system, sans-serif;
   line-height: 1.55;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 ::selection { background: rgba(233, 197, 106, 0.3); color: #fff; }
 
 a { color: inherit; }
+
+img { max-width: 100%; height: auto; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #ebcb72;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 
 /* ---- Animationen (aus dem Original übernommen) ---- */
 @keyframes kc-live   { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.78)} }
@@ -34,26 +45,40 @@ a { color: inherit; }
 @keyframes kc-rise-l { from{opacity:0;transform:translateX(-32px)} to{opacity:1;transform:none} }
 @keyframes kc-rise-r { from{opacity:0;transform:translateX(32px)} to{opacity:1;transform:none} }
 
-[data-reveal]        { animation: kc-rise .85s cubic-bezier(.2,.7,.2,1) both; }
-[data-reveal="left"] { animation-name: kc-rise-l; }
-[data-reveal="right"]{ animation-name: kc-rise-r; }
+/* Scroll-Reveals: Elemente starten unsichtbar (nur wenn JS aktiv ist)
+   und werden von funnel.js per IntersectionObserver mit .kc-in eingeblendet */
+html.js [data-reveal]              { opacity: 0; }
+html.js [data-reveal].kc-in        { animation: kc-rise .85s cubic-bezier(.2,.7,.2,1) both; }
+html.js [data-reveal="left"].kc-in { animation-name: kc-rise-l; }
+html.js [data-reveal="right"].kc-in{ animation-name: kc-rise-r; }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal], .kc-cta { animation: none !important; }
+  html.js [data-reveal] { opacity: 1 !important; animation: none !important; }
+  .kc-cta { animation: none !important; }
 }
 
 /* ---- Interaktive Zustände (ersetzen die style-hover/style-focus des Originals) ---- */
-.kc-cta            { transition: transform .25s ease; }
-.kc-cta:hover      { transform: translateY(-2px); }
+.kc-cta            { transition: transform .25s ease, filter .25s ease; }
+.kc-cta:hover      { transform: translateY(-2px); filter: brightness(1.06); }
+.kc-cta:active     { transform: translateY(0) scale(.98); }
 .kc-ghost          { transition: background .25s ease, border-color .25s ease; }
 .kc-ghost:hover    { background: rgba(233,197,106,.08); border-color: rgba(233,197,106,.7); }
 .kc-glow           { animation: kc-ctaglow 2.8s ease-in-out infinite; }
-.kc-card           { transition: border-color .3s ease, box-shadow .3s ease; }
-.kc-card:hover     { border-color: rgba(233,197,106,.45); box-shadow: 0 26px 60px rgba(0,0,0,.5), 0 0 30px rgba(233,197,106,.09); }
-.kc-input          { transition: border-color .2s ease, box-shadow .2s ease; }
-.kc-input:focus    { outline: none; border-color: #ebcb72; box-shadow: 0 0 0 3px rgba(233,197,106,.12); }
-.kc-input::placeholder { color: #6b6353; }
+.kc-card           { transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease; }
+.kc-card:hover     { border-color: rgba(233,197,106,.45); box-shadow: 0 26px 60px rgba(0,0,0,.5), 0 0 30px rgba(233,197,106,.09); transform: translateY(-3px); }
 .kc-nav-link:hover { color: #ebcb72; }
+
+/* Webinar-Bild: sanfter Zoom + Gold-Rand beim Hover */
+.kc-imglink        { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+.kc-imglink:hover  { transform: translateY(-4px) scale(1.01); border-color: rgba(233,197,106,.55) !important; box-shadow: 0 34px 90px rgba(0,0,0,.6), 0 0 40px rgba(233,197,106,.14) !important; }
+.kc-imglink:active { transform: translateY(-1px) scale(1.0); }
 
 /* conditionally hidden by JS */
 [data-if][hidden] { display: none !important; }
+
+/* ---- Mobile-Feinschliff ---- */
+@media (max-width: 640px) {
+  header { justify-content: center !important; text-align: center; }
+  header > div { justify-content: center !important; gap: 12px !important; }
+  header img { height: 40px !important; }
+}
