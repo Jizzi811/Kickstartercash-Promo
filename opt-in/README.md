@@ -35,7 +35,7 @@ Backend geschickt.
    ```html
    <section
      class="kcc-optin"
-     data-funnel-url="https://kickstarterai.net/funnel"
+     data-funnel-url="https://portal.kickstartercash.club"
      data-webhook-url="https://dein-mailtool.de/hook">
      ...
    </section>
@@ -64,8 +64,19 @@ Als Webhook eignet sich z. B. Zapier / Make / Brevo / Mailchimp / ein
 eigenes Backend. Wichtig: Für DSGVO-Konformität die Einwilligung und den
 Datenschutz-Link entsprechend anpassen (`/datenschutz`).
 
+## Design
+
+Die Komponente ist optisch exakt an den Kickstartercash.Club-Funnel
+angelehnt: Funnel-Schwarz `#0a0806`, warme Gold-Verläufe (`#EBCB72 → #B07F2A`),
+die Fonts **Sora** (Headings/Text) und **Cormorant Garamond** (Serif-Akzent)
+sowie der goldene CTA-Button mit Glow. So fügt sich die Box nahtlos in die
+Hauptseite ein. Die Fonts werden per `@import` aus Google Fonts geladen –
+ist die Komponente in den Funnel eingebettet, sind sie ohnehin schon da.
+
 ## Anpassen
 
-- **Farben / Look:** oben in `opt-in.css` über die `--kcc-*` CSS-Variablen.
-- **Texte:** direkt im HTML-Block (`kcc-optin__title`, `__subtitle`, Button …).
+- **Farben / Look:** oben in `opt-in.css` über die `--kcc-*` CSS-Variablen
+  (alle Funnel-Tokens sind dort zentral gebündelt).
+- **Texte:** direkt im HTML-Block (`kcc-optin__title`, `__claim`,
+  `__subtitle`, Button …). Der Gold-Akzent im Titel: `kcc-optin__title-accent`.
 - **Felder:** weitere Felder ergänzen; das JS liest `name`, `email`, `consent`.

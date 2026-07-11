@@ -1,0 +1,391 @@
+/* =========================================================
+   Kickstartercash.Club – Funnel-Generator (UI)
+   Partner tragen ihre Kontaktdaten ein und erzeugen ihren
+   personalisierten Funnel. Look im Funnel-Design (Schwarz-Gold).
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Sora:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #0a0806;
+  --card-top: rgba(28, 23, 15, 0.92);
+  --card-bottom: rgba(13, 11, 8, 0.95);
+  --border: rgba(233, 197, 106, 0.22);
+  --gold: #ebcb72;
+  --gold-soft: #e7c167;
+  --gold-deep: #b07f2a;
+  --grad: linear-gradient(180deg, #f6dc8e 0%, #d9a93f 52%, #b07f2a 100%);
+  --grad-text: linear-gradient(180deg, #fbe9a6, #e7c167 45%, #b07f2a);
+  --ink: #1a1206;
+  --text: #f3ecdd;
+  --muted: #b6a98e;
+  --muted-2: #9f937c;
+  --faint: #7d745f;
+  --input-bg: rgba(8, 6, 4, 0.6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Sora", system-ui, -apple-system, sans-serif;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+::selection { background: rgba(233, 197, 106, 0.3); color: #fff; }
+
+.gen-wrap {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 40px) 80px;
+}
+
+/* dezenter Gold-Glow oben */
+.gen-wrap::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  width: min(900px, 110vw);
+  height: 460px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(216, 160, 55, 0.16), transparent 64%);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gen-wrap > * { position: relative; z-index: 1; }
+
+/* ---- Header ---- */
+.gen-head { text-align: center; margin-bottom: clamp(32px, 5vw, 52px); }
+
+.gen-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  background: rgba(233, 197, 106, 0.06);
+  border: 1px solid rgba(233, 197, 106, 0.32);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  margin-bottom: 1.3rem;
+}
+
+.gen-badge::before {
+  content: "";
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+  animation: gen-live 1.4s ease-in-out infinite;
+}
+
+.gen-title {
+  font-weight: 800;
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  line-height: 1.06;
+  letter-spacing: -1px;
+  margin-bottom: 0.7rem;
+}
+
+.gen-title .accent {
+  background: var(--grad-text);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+.gen-sub { color: var(--muted); font-size: clamp(1rem, 2vw, 1.12rem); max-width: 640px; margin: 0 auto; }
+
+/* ---- Karte ---- */
+.gen-card {
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+  padding: clamp(22px, 4vw, 38px);
+}
+
+.gen-section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.gen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.gen-field { display: flex; flex-direction: column; }
+.gen-field.full { grid-column: 1 / -1; }
+
+.gen-field label {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.gen-field input[type="text"],
+.gen-field input[type="email"],
+.gen-field input[type="tel"],
+.gen-field input[type="url"],
+.gen-field input[type="datetime-local"] {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: "Sora", sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gen-field input::placeholder { color: #6b6353; }
+
+.gen-field input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(233, 197, 106, 0.12);
+}
+
+.gen-field .hint { font-size: 0.72rem; color: var(--faint); margin-top: 0.4rem; }
+
+/* Live-Vorschau der aus dem Username gebauten Links */
+.gen-linkpreview {
+  margin-top: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(233, 197, 106, 0.05);
+  border: 1px dashed rgba(233, 197, 106, 0.3);
+  font-size: 0.74rem;
+  color: var(--muted-2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  animation: gen-fadein 0.3s ease;
+  overflow-wrap: anywhere;
+}
+
+.gen-linkpreview code { color: var(--gold-soft); font-family: ui-monospace, monospace; font-size: 0.72rem; }
+
+.gen-check {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted-2);
+  cursor: pointer;
+  padding-top: 0.3rem;
+}
+
+.gen-check input { width: 1.15rem; height: 1.15rem; accent-color: var(--gold-deep); flex: none; }
+
+.gen-divider { height: 1px; background: rgba(233, 197, 106, 0.14); margin: 1.75rem 0; }
+
+/* ---- Button ---- */
+.gen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1.05rem 1.5rem;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.3px;
+  color: var(--ink);
+  background: var(--grad);
+  border: 1px solid rgba(255, 236, 176, 0.5);
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 12px 34px rgba(216, 160, 55, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: gen-glow 2.8s ease-in-out infinite;
+  transition: transform 0.25s ease;
+}
+
+.gen-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.gen-btn:active { transform: translateY(0) scale(0.985); }
+.gen-btn:disabled { cursor: progress; filter: saturate(0.85); }
+
+/* Gold-Schimmer über den Generieren-Button */
+.gen-btn { position: relative; overflow: hidden; }
+.gen-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  animation: gen-sweep 5s ease-in-out 1s infinite;
+}
+
+@keyframes gen-sweep {
+  0%, 72% { left: -75%; }
+  88%, 100% { left: 125%; }
+}
+
+/* Label leuchtet gold, wenn das Feld fokussiert ist */
+.gen-field:focus-within label { color: var(--gold-soft); }
+
+/* Ergebnis-Karte gleitet herein */
+.gen-result:not([hidden]) { animation: gen-fadein 0.5s ease; }
+
+/* Gold-Funken beim Generieren */
+.gen-spark {
+  position: fixed;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fbe9a6, #d9a93f);
+  box-shadow: 0 0 8px rgba(233, 197, 106, .8);
+  pointer-events: none;
+  z-index: 999;
+  animation: gen-spark-fly 0.8s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+}
+
+@keyframes gen-spark-fly {
+  from { transform: translate(0, 0) scale(1); opacity: 1; }
+  to   { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+}
+
+.gen-error {
+  margin-top: 1rem;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(180, 60, 40, 0.14);
+  border: 1px solid rgba(220, 90, 70, 0.4);
+  color: #f0b9ad;
+  font-size: 0.9rem;
+}
+
+/* ---- Ergebnis ---- */
+.gen-result { margin-top: clamp(24px, 4vw, 40px); }
+
+.gen-result h2 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+.gen-result h2 .accent {
+  background: var(--grad-text);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+.gen-link-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 1.1rem 0 0.4rem;
+}
+
+.gen-link-row input {
+  flex: 1 1 320px;
+  padding: 0.85rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--gold);
+  font-family: "Sora", sans-serif;
+  font-size: 0.85rem;
+}
+
+.gen-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.85rem 1.3rem;
+  border-radius: 12px;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.gen-mini-btn.solid {
+  color: var(--ink);
+  background: var(--grad);
+  border: 1px solid rgba(255, 236, 176, 0.5);
+}
+
+.gen-mini-btn.ghost {
+  color: var(--gold);
+  background: transparent;
+  border: 1px solid rgba(233, 197, 106, 0.4);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.gen-mini-btn.ghost:hover { background: rgba(233, 197, 106, 0.08); border-color: rgba(233, 197, 106, 0.7); }
+
+.gen-copied { font-size: 0.78rem; color: var(--gold-soft); min-height: 1rem; margin-bottom: 0.6rem; }
+.gen-copied.pop { animation: gen-pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4); }
+
+@keyframes gen-pop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gen-fadein {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.gen-preview-frame {
+  width: 100%;
+  height: 70vh;
+  min-height: 520px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #0a0806;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+  margin-top: 0.8rem;
+}
+
+.gen-foot {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.8rem;
+  color: var(--faint);
+}
+
+[hidden] { display: none !important; }
+
+@keyframes gen-live { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.78)} }
+@keyframes gen-glow {
+  0%,100% { box-shadow: 0 12px 34px rgba(216,160,55,.34), inset 0 1px 0 rgba(255,255,255,.6); }
+  50%     { box-shadow: 0 14px 50px rgba(233,197,106,.6), inset 0 1px 0 rgba(255,255,255,.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gen-btn, .gen-btn::after, .gen-badge::before, .gen-copied.pop,
+  .gen-linkpreview, .gen-result:not([hidden]), .gen-spark { animation: none !important; }
+  .gen-spark { display: none; }
+}
+
+/* ---- Mobile-Feinschliff ---- */
+@media (max-width: 560px) {
+  .gen-wrap { padding-left: 12px; padding-right: 12px; }
+  .gen-card { padding: 18px 14px; border-radius: 16px; }
+  .gen-grid { grid-template-columns: 1fr; }
+  .gen-link-row { flex-direction: column; }
+  .gen-link-row input { flex: 1 1 auto; }
+  .gen-mini-btn { justify-content: center; }
+  .gen-preview-frame { height: 60vh; min-height: 420px; }
+}
